@@ -1,0 +1,95 @@
+[
+  {
+    "scenario_id": "security_kev_vs_none",
+    "components": [
+      {"name": "OpenSSL", "installed_version": "3.0.1"},
+      {"name": "curl", "installed_version": "8.4.0"}
+    ],
+    "facts": [
+      {
+        "component": "OpenSSL", "latest_version": "3.0.14", "version_bump": "patch",
+        "risk_type": "foundational", "cve_id": "CVE-2024-TEST-1", "cvss_score": 9.1,
+        "kev_listed": true
+      },
+      {
+        "component": "curl", "latest_version": "8.4.0", "version_bump": "unknown",
+        "risk_type": "standard"
+      }
+    ]
+  },
+  {
+    "scenario_id": "security_cvss_comparison",
+    "components": [
+      {"name": "nginx", "installed_version": "1.24.0"},
+      {"name": "Firefox", "installed_version": "128.0"}
+    ],
+    "facts": [
+      {
+        "component": "nginx", "latest_version": "1.26.1", "version_bump": "minor",
+        "risk_type": "standard", "cve_id": "CVE-2024-TEST-2", "cvss_score": 9.8
+      },
+      {
+        "component": "Firefox", "latest_version": "129.0", "version_bump": "minor",
+        "risk_type": "standard", "cve_id": "CVE-2024-TEST-3", "cvss_score": 4.3
+      }
+    ]
+  },
+  {
+    "scenario_id": "stability_foundational_major_vs_leaf_patch",
+    "components": [
+      {"name": "Linux kernel", "installed_version": "5.15.0"},
+      {"name": "htop", "installed_version": "3.2.1"}
+    ],
+    "facts": [
+      {
+        "component": "Linux kernel", "latest_version": "6.9.0", "version_bump": "major",
+        "risk_type": "foundational"
+      },
+      {
+        "component": "htop", "latest_version": "3.2.2", "version_bump": "patch",
+        "risk_type": "standard"
+      }
+    ]
+  },
+  {
+    "scenario_id": "citation_flagged_community_risk",
+    "components": [
+      {"name": "Docker Engine", "installed_version": "24.0.0"},
+      {"name": "jq", "installed_version": "1.6"}
+    ],
+    "facts": [
+      {
+        "component": "Docker Engine", "latest_version": "26.1.0", "version_bump": "major",
+        "risk_type": "foundational", "community_risk_flagged": true,
+        "community_risk_url": "https://reddit.com/r/docker/example-post"
+      },
+      {
+        "component": "jq", "latest_version": "1.7.1", "version_bump": "minor",
+        "risk_type": "standard"
+      }
+    ]
+  },
+  {
+    "scenario_id": "mixed_both_mode",
+    "components": [
+      {"name": "OpenSSH", "installed_version": "8.9"},
+      {"name": "Kubernetes", "installed_version": "1.27.0"},
+      {"name": "ripgrep", "installed_version": "13.0.0"}
+    ],
+    "facts": [
+      {
+        "component": "OpenSSH", "latest_version": "9.8", "version_bump": "major",
+        "risk_type": "foundational", "cve_id": "CVE-2024-TEST-4", "cvss_score": 8.1,
+        "kev_listed": true
+      },
+      {
+        "component": "Kubernetes", "latest_version": "1.27.1", "version_bump": "patch",
+        "risk_type": "foundational"
+      },
+      {
+        "component": "ripgrep", "latest_version": "14.1.0", "version_bump": "minor",
+        "risk_type": "standard"
+      }
+    ]
+  }
+]
