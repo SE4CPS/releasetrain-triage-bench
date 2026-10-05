@@ -1,0 +1,41 @@
+name: Publish to PyPI
+
+# Triggered by publishing a GitHub Release (tag the release vX.Y.Z to match
+# the version in pyproject.toml). Uses PyPI's Trusted Publisher (OIDC) flow,
+# not a stored API token - no PyPI secret lives in this repo at all; trust
+# is established once in PyPI's own "Add a new pending publisher" form
+# (repository: releasetrain-triage-bench, workflow: publish.yml,
+# environment: pypi) and verified here only by `id-token: write`.
+on:
+  release:
+    types: [published]
+  workflow_dispatch: {}
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/releasetrain-triage-bench/
+    permissions:
+      id-token: write  # required for OIDC trusted publishing
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install build tooling
+        run: python -m pip install --upgrade pip build
+
+      - name: Run tests
+        run: |
+          pip install -e ".[dev]"
+          pytest -q
+
+      - name: Build sdist and wheel
+        run: python -m build
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1

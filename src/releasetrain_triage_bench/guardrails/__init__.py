@@ -9,7 +9,7 @@ complete hardcoded ordering would penalize it for doing exactly that - a
 full ranking forces an answer (and a tie-breaking rule) for every pair,
 including pairs the guardrail's own stated policy has no opinion about. A
 guardrail instead names only the pairs it has a real, unambiguous
-position on ("if A is KEV-listed and B is not, A must not rank after B"),
+position on ("if A has a known CVE and B does not, A must not rank after B"),
 and leaves every other pair for the system under test to decide freely.
 Compliance is then measured as a violation rate against those specific,
 derivable constraints - see scorer.py.
@@ -32,7 +32,7 @@ from ..types import Constraint, Scenario
 @runtime_checkable
 class Guardrail(Protocol):
     #: a short, stable identifier for this guardrail, used to key
-    #: EvalReport.violation_rate_by_guardrail - e.g. "security_kev_ordering".
+    #: EvalReport.violation_rate_by_guardrail - e.g. "security_cve_cvss_ordering".
     guardrail_id: str
 
     #: which optimize_for mode(s) this guardrail applies to; a guardrail

@@ -57,7 +57,6 @@ class ComponentFacts:
     risk_type: RiskType
     cve_id: str | None = None
     cvss_score: float | None = None  # 0.0-10.0, NVD scale
-    kev_listed: bool = False  # CISA Known Exploited Vulnerabilities
     community_risk_flagged: bool = False  # a real, flagged-risky community report exists
     community_risk_url: str | None = None
 

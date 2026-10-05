@@ -7,9 +7,9 @@ def _scenario(facts):
     return Scenario(scenario_id="s1", components=components, facts=tuple(facts))
 
 
-def test_kev_listed_beats_no_cve():
+def test_cve_beats_no_cve():
     facts = [
-        ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1", kev_listed=True),
+        ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1"),
         ComponentFacts("B", "2.0.0", VersionBump.PATCH, RiskType.STANDARD),
     ]
     g = SecurityOrderingGuardrail()
@@ -51,7 +51,7 @@ def test_no_constraint_for_unscored_cves():
 
 def test_skipped_entirely_outside_its_modes():
     facts = [
-        ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1", kev_listed=True),
+        ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1"),
         ComponentFacts("B", "2.0.0", VersionBump.PATCH, RiskType.STANDARD),
     ]
     g = SecurityOrderingGuardrail()
@@ -60,7 +60,7 @@ def test_skipped_entirely_outside_its_modes():
 
 def test_applies_in_both_mode_too():
     facts = [
-        ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1", kev_listed=True),
+        ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1"),
         ComponentFacts("B", "2.0.0", VersionBump.PATCH, RiskType.STANDARD),
     ]
     g = SecurityOrderingGuardrail()

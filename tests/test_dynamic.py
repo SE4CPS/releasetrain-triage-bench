@@ -5,7 +5,7 @@ from releasetrain_triage_bench.types import ComponentFacts, EcosystemComponent, 
 
 def _scenario():
     facts = (
-        ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1", kev_listed=True),
+        ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1"),
         ComponentFacts("B", "2.0.0", VersionBump.PATCH, RiskType.STANDARD),
     )
     components = tuple(EcosystemComponent(name=f.component, installed_version="1.0.0") for f in facts)

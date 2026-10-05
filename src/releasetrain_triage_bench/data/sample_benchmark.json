@@ -1,6 +1,6 @@
 [
   {
-    "scenario_id": "security_kev_vs_none",
+    "scenario_id": "security_cve_vs_none",
     "components": [
       {"name": "OpenSSL", "installed_version": "3.0.1"},
       {"name": "curl", "installed_version": "8.4.0"}
@@ -8,8 +8,7 @@
     "facts": [
       {
         "component": "OpenSSL", "latest_version": "3.0.14", "version_bump": "patch",
-        "risk_type": "foundational", "cve_id": "CVE-2024-TEST-1", "cvss_score": 9.1,
-        "kev_listed": true
+        "risk_type": "foundational", "cve_id": "CVE-2024-TEST-1", "cvss_score": 9.1
       },
       {
         "component": "curl", "latest_version": "8.4.0", "version_bump": "unknown",
@@ -79,8 +78,7 @@
     "facts": [
       {
         "component": "OpenSSH", "latest_version": "9.8", "version_bump": "major",
-        "risk_type": "foundational", "cve_id": "CVE-2024-TEST-4", "cvss_score": 8.1,
-        "kev_listed": true
+        "risk_type": "foundational", "cve_id": "CVE-2024-TEST-4", "cvss_score": 8.1
       },
       {
         "component": "Kubernetes", "latest_version": "1.27.1", "version_bump": "patch",

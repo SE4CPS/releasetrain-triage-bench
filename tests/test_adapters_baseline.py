@@ -2,9 +2,9 @@ from releasetrain_triage_bench.adapters.baseline import BaselineTriageSystem
 from releasetrain_triage_bench.types import ComponentFacts, EcosystemComponent, RiskType, VersionBump
 
 
-def test_kev_listed_ranked_first_in_security_mode():
+def test_cve_ranked_first_in_security_mode():
     facts = {
-        "A": ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1", kev_listed=True),
+        "A": ComponentFacts("A", "2.0.0", VersionBump.PATCH, RiskType.STANDARD, cve_id="CVE-1"),
         "B": ComponentFacts("B", "2.0.0", VersionBump.PATCH, RiskType.STANDARD),
     }
     system = BaselineTriageSystem(facts_by_component=facts)

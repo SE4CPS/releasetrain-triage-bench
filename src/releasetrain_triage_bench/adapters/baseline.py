@@ -1,5 +1,5 @@
 """A trivial, dependency-free reference TriageSystem: no LLM, no network,
-no server. Sorts by (has a KEV-listed CVE, CVSS score, version-bump size)
+no server. Sorts by (has a known CVE, CVSS score, version-bump size)
 depending on mode. Exists so `pip install releasetrain-triage-bench` works
 end-to-end with zero setup (see README), and so an evaluation report has
 at least one comparison point that trivially satisfies the ordering
@@ -45,12 +45,12 @@ class BaselineTriageSystem:
                     risk_type=classify_component_risk_type(c.name),
                 )
             if mode == "security":
-                return (not f.kev_listed, -(f.cvss_score or 0.0))
+                return (f.cve_id is None, -(f.cvss_score or 0.0))
             if mode == "stability":
                 return (-(_BUMP_RANK[f.version_bump] + (1 if f.risk_type is RiskType.FOUNDATIONAL else 0)),)
             # "both": security signal first, stability signal as tiebreak
             return (
-                not f.kev_listed, -(f.cvss_score or 0.0),
+                f.cve_id is None, -(f.cvss_score or 0.0),
                 -(_BUMP_RANK[f.version_bump] + (1 if f.risk_type is RiskType.FOUNDATIONAL else 0)),
             )
 

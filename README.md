@@ -17,11 +17,11 @@ judgment at all.
 Instead, this package asks: **given the explicit, codified guardrails a
 pipeline was built with, does its actual output respect them?** A
 guardrail here is a deterministic, auditable rule derived from real,
-externally-verifiable facts (NVD CVSS scores, CISA KEV status, version-
-bump size, a small public component-criticality taxonomy) - not a full
-ranking, but a set of *partial*, pairwise constraints the rule is
-confident about ("a KEV-listed CVE must not be ranked below a component
-with no known CVE"). Everywhere a guardrail has no opinion, the system
+externally-verifiable facts (NIST NVD CVSS scores, version-bump size, a
+small public component-criticality taxonomy) - not a full ranking, but a
+set of *partial*, pairwise constraints the rule is confident about ("a
+component with a known CVE must not be ranked below a component with no
+known CVE"). Everywhere a guardrail has no opinion, the system
 under test is free to use its own reasoning, and this harness never
 penalizes that.
 

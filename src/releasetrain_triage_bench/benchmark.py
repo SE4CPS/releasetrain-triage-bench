@@ -2,18 +2,18 @@
 Scenario objects.
 
 Why frozen JSON, not a live lookup: the facts a benchmark scores against
-(CVSS, KEV status, latest version) change over time at the real sources
-they come from (NVD, CISA, vendor release feeds). A snapshot recorded
-once and replayed is what makes two different runs - today, and someone
-else's six months from now - comparable at all; see this package's
-README for the full reproducibility rationale. `data/sample_benchmark.json`
-is a small, hand-built illustrative set (a handful of scenarios) meant to
-exercise every guardrail at least once and to validate the harness
-end-to-end - it is NOT the full benchmark a paper's reported numbers
-would be computed over. Building that larger, NVD/CISA-sourced snapshot
-is a separate data-collection step (see scripts/build_snapshot.py, not
-included in this initial package version) that only needs to produce
-JSON in this exact shape to be usable by everything else here.
+(CVSS score, latest version) change over time at the real sources they
+come from (NIST NVD, vendor release feeds). A snapshot recorded once and
+replayed is what makes two different runs - today, and someone else's six
+months from now - comparable at all; see this package's README for the
+full reproducibility rationale. `data/sample_benchmark.json` is a small,
+hand-built illustrative set (a handful of scenarios) meant to exercise
+every guardrail at least once and to validate the harness end-to-end - it
+is NOT the full benchmark a paper's reported numbers would be computed
+over. Building that larger, NVD-sourced snapshot is a separate
+data-collection step (see scripts/build_snapshot.py, not included in
+this initial package version) that only needs to produce JSON in this
+exact shape to be usable by everything else here.
 """
 
 from __future__ import annotations
@@ -33,7 +33,6 @@ def _facts_from_dict(d: dict) -> ComponentFacts:
         risk_type=RiskType(d.get("risk_type", "standard")),
         cve_id=d.get("cve_id"),
         cvss_score=d.get("cvss_score"),
-        kev_listed=d.get("kev_listed", False),
         community_risk_flagged=d.get("community_risk_flagged", False),
         community_risk_url=d.get("community_risk_url"),
     )
