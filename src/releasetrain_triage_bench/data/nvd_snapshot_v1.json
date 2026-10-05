@@ -1,0 +1,196 @@
+[
+  {
+    "scenario_id": "linux_server_stack",
+    "components": [
+      {
+        "name": "Linux kernel",
+        "installed_version": "5.15.0"
+      },
+      {
+        "name": "OpenSSH",
+        "installed_version": "9.3"
+      },
+      {
+        "name": "nginx",
+        "installed_version": "1.24.0"
+      }
+    ],
+    "facts": [
+      {
+        "component": "Linux kernel",
+        "latest_version": "6.11.0",
+        "version_bump": "major",
+        "risk_type": "foundational",
+        "cve_id": "CVE-2026-46289",
+        "cvss_score": 9.8
+      },
+      {
+        "component": "OpenSSH",
+        "latest_version": "9.9",
+        "version_bump": "minor",
+        "risk_type": "standard",
+        "cve_id": "CVE-2026-60002",
+        "cvss_score": 7.7
+      },
+      {
+        "component": "nginx",
+        "latest_version": "1.27.2",
+        "version_bump": "minor",
+        "risk_type": "standard",
+        "cve_id": "CVE-2026-55723",
+        "cvss_score": 8.3
+      }
+    ]
+  },
+  {
+    "scenario_id": "container_platform",
+    "components": [
+      {
+        "name": "Docker Engine",
+        "installed_version": "24.0.0"
+      },
+      {
+        "name": "Kubernetes",
+        "installed_version": "1.27.0"
+      }
+    ],
+    "facts": [
+      {
+        "component": "Docker Engine",
+        "latest_version": "27.3.1",
+        "version_bump": "major",
+        "risk_type": "foundational",
+        "cve_id": "CVE-2025-36356",
+        "cvss_score": 9.3
+      },
+      {
+        "component": "Kubernetes",
+        "latest_version": "1.31.2",
+        "version_bump": "minor",
+        "risk_type": "foundational",
+        "cve_id": "CVE-2026-13019",
+        "cvss_score": 9.8
+      }
+    ]
+  },
+  {
+    "scenario_id": "dev_workstation",
+    "components": [
+      {
+        "name": "Git",
+        "installed_version": "2.39.0"
+      },
+      {
+        "name": "Node.js",
+        "installed_version": "18.16.0"
+      }
+    ],
+    "facts": [
+      {
+        "component": "Git",
+        "latest_version": "2.47.0",
+        "version_bump": "minor",
+        "risk_type": "standard",
+        "cve_id": "CVE-2026-10087",
+        "cvss_score": 8.7
+      },
+      {
+        "component": "Node.js",
+        "latest_version": "22.10.0",
+        "version_bump": "major",
+        "risk_type": "standard",
+        "cve_id": "CVE-2026-48617",
+        "cvss_score": 8.2
+      }
+    ]
+  },
+  {
+    "scenario_id": "database_stack",
+    "components": [
+      {
+        "name": "PostgreSQL",
+        "installed_version": "14.5"
+      },
+      {
+        "name": "Redis",
+        "installed_version": "7.0.0"
+      }
+    ],
+    "facts": [
+      {
+        "component": "PostgreSQL",
+        "latest_version": "17.0",
+        "version_bump": "major",
+        "risk_type": "standard",
+        "cve_id": "CVE-2026-11945",
+        "cvss_score": 6.4
+      },
+      {
+        "component": "Redis",
+        "latest_version": "7.4.1",
+        "version_bump": "minor",
+        "risk_type": "standard",
+        "cve_id": "CVE-2026-41719",
+        "cvss_score": 6.4
+      }
+    ]
+  },
+  {
+    "scenario_id": "web_app_stack",
+    "components": [
+      {
+        "name": "WordPress",
+        "installed_version": "6.2"
+      },
+      {
+        "name": "PHP",
+        "installed_version": "8.1.0"
+      }
+    ],
+    "facts": [
+      {
+        "component": "WordPress",
+        "latest_version": "6.6.2",
+        "version_bump": "minor",
+        "risk_type": "standard"
+      },
+      {
+        "component": "PHP",
+        "latest_version": "8.3.13",
+        "version_bump": "minor",
+        "risk_type": "standard",
+        "cve_id": "CVE-2026-24895",
+        "cvss_score": 9.8
+      }
+    ]
+  },
+  {
+    "scenario_id": "language_runtimes",
+    "components": [
+      {
+        "name": "OpenJDK",
+        "installed_version": "17.0.0"
+      },
+      {
+        "name": "Go",
+        "installed_version": "1.20.0"
+      }
+    ],
+    "facts": [
+      {
+        "component": "OpenJDK",
+        "latest_version": "23.0.1",
+        "version_bump": "major",
+        "risk_type": "standard"
+      },
+      {
+        "component": "Go",
+        "latest_version": "1.23.2",
+        "version_bump": "minor",
+        "risk_type": "standard",
+        "cve_id": "CVE-2026-25242",
+        "cvss_score": 9.8
+      }
+    ]
+  }
+]

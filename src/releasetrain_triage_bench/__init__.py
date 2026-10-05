@@ -6,7 +6,7 @@ the public surface - every real implementation lives in its own small,
 independently-testable module (types, classify, guardrails/, adapters/,
 benchmark, scorer, dynamic)."""
 
-from .benchmark import load_benchmark, load_sample_benchmark
+from .benchmark import load_benchmark, load_nvd_snapshot_v1, load_sample_benchmark
 from .classify import classify_component_risk_type, classify_version_bump
 from .dynamic import (
     SelfCorrectionConfig,
@@ -46,7 +46,7 @@ __all__ = [
     "Guardrail", "SecurityOrderingGuardrail", "StabilityOrderingGuardrail",
     "CommunityRiskCitationGuardrail",
     # benchmark
-    "load_benchmark", "load_sample_benchmark",
+    "load_benchmark", "load_sample_benchmark", "load_nvd_snapshot_v1",
     # scorer
     "evaluate", "run_scenario", "DEFAULT_MODES",
     # dynamic

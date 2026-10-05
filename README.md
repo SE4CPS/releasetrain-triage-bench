@@ -38,9 +38,13 @@ pip install releasetrain-triage-bench
 ## Quick start
 
 ```bash
-# Runs the bundled sample benchmark against the dependency-free baseline
-# adapter - no server, no API key, no setup.
+# Runs the small illustrative sample benchmark against the dependency-free
+# baseline adapter - no server, no API key, no setup.
 releasetrain-triage-bench evaluate
+
+# Runs the real, NVD-sourced snapshot instead (see "The benchmark
+# datasets" below) - still no setup needed, it's bundled too.
+releasetrain-triage-bench evaluate --benchmark nvd
 ```
 
 ```python
@@ -81,6 +85,34 @@ A thin, reference HTTP adapter is included for a system that runs behind
 an HTTP API (`releasetrain_triage_bench.adapters.http.HTTPTriageSystem`)
 so your **real, unmodified pipeline** can be evaluated by calling its own
 endpoint - this package never reimplements the system it's scoring.
+
+## The benchmark datasets
+
+Two snapshots ship with the package:
+
+- **`load_sample_benchmark()`** (`data/sample_benchmark.json`) - a small,
+  hand-built set exercising every guardrail at least once. For validating
+  the harness itself, not for reporting real numbers.
+- **`load_nvd_snapshot_v1()`** (`data/nvd_snapshot_v1.json`) - built from
+  live NIST NVD data by `scripts/build_snapshot.py`. For each
+  (component, installed-version) pair, the script queries NVD and
+  verifies a candidate CVE actually affects that product via the CVE's
+  own structured CPE data (not just a keyword-search hit, which produces
+  real false positives - e.g. "curl" as a keyword matches an unrelated
+  Linux kernel CVE that happens to mention it in passing). If nothing
+  verified is found, `cve_id`/`cvss_score` are left `None` rather than
+  guessed. Which components/versions to simulate, and each component's
+  `latest_version`, are curated (stated plainly, not hidden behind
+  "automated"). The raw NVD API responses are committed in
+  `scripts/.nvd_cache/`, so the exact facts behind every number are
+  inspectable without depending on NVD's live API returning the same
+  thing later - rerun `python scripts/build_snapshot.py` to regenerate
+  from the cache, or add `--refresh`-style cache-busting yourself to pull
+  fresh data.
+
+```bash
+releasetrain-triage-bench evaluate --benchmark nvd
+```
 
 ## Bringing your own guardrails
 

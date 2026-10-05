@@ -9,11 +9,13 @@ months from now - comparable at all; see this package's README for the
 full reproducibility rationale. `data/sample_benchmark.json` is a small,
 hand-built illustrative set (a handful of scenarios) meant to exercise
 every guardrail at least once and to validate the harness end-to-end - it
-is NOT the full benchmark a paper's reported numbers would be computed
-over. Building that larger, NVD-sourced snapshot is a separate
-data-collection step (see scripts/build_snapshot.py, not included in
-this initial package version) that only needs to produce JSON in this
-exact shape to be usable by everything else here.
+is NOT the dataset a reported evaluation result should be computed over.
+`data/nvd_snapshot_v1.json` is that dataset: built from live NIST NVD
+data by scripts/build_snapshot.py (see that script's own docstring for
+exactly what's automated vs. curated, and scripts/.nvd_cache/ for the
+raw API responses it was built from, committed alongside it so the exact
+facts behind every number are independently inspectable without
+depending on NVD's live API still returning the same thing later).
 """
 
 from __future__ import annotations
@@ -55,13 +57,27 @@ def load_benchmark(path: str | Path) -> list[Scenario]:
     return [_scenario_from_dict(d) for d in data]
 
 
+def _load_bundled(filename: str) -> list[Scenario]:
+    with resources.files("releasetrain_triage_bench.data").joinpath(filename).open(
+        "r", encoding="utf-8"
+    ) as f:
+        data = json.load(f)
+    return [_scenario_from_dict(d) for d in data]
+
+
 def load_sample_benchmark() -> list[Scenario]:
     """Loads the small, bundled illustrative benchmark shipped inside the
     package itself - no file path needed, works immediately after
     `pip install`. See this module's own docstring for what this dataset
     is (and is not) suitable for."""
-    with resources.files("releasetrain_triage_bench.data").joinpath("sample_benchmark.json").open(
-        "r", encoding="utf-8"
-    ) as f:
-        data = json.load(f)
-    return [_scenario_from_dict(d) for d in data]
+    return _load_bundled("sample_benchmark.json")
+
+
+def load_nvd_snapshot_v1() -> list[Scenario]:
+    """Loads the real, NVD-sourced benchmark snapshot - built by
+    scripts/build_snapshot.py from live NIST NVD data (CPE-verified CVE
+    matches, not keyword-search false positives; see that script's own
+    docstring for exactly what's automated vs. curated). This is the
+    dataset a reported evaluation result should actually be computed
+    over, not `load_sample_benchmark()`'s illustrative set."""
+    return _load_bundled("nvd_snapshot_v1.json")

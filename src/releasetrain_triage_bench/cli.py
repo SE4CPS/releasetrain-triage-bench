@@ -17,7 +17,7 @@ from dataclasses import asdict
 
 from .adapters.baseline import BaselineTriageSystem
 from .adapters.http import HTTPTriageSystem
-from .benchmark import load_benchmark, load_sample_benchmark
+from .benchmark import load_benchmark, load_nvd_snapshot_v1, load_sample_benchmark
 from .dynamic import evaluate_dynamic
 from .guardrails.citation import CommunityRiskCitationGuardrail
 from .guardrails.security import SecurityOrderingGuardrail
@@ -45,7 +45,9 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
 
     ev = sub.add_parser("evaluate", help="Run a system against a benchmark and report guardrail compliance.")
-    ev.add_argument("--benchmark", help="Path to a benchmark JSON snapshot. Defaults to the bundled sample.")
+    ev.add_argument("--benchmark",
+                     help="Path to a benchmark JSON snapshot, or the keyword 'nvd' for the bundled "
+                          "NVD-sourced snapshot. Defaults to the small illustrative sample.")
     ev.add_argument("--system", choices=["baseline", "http"], default="baseline",
                      help="Which reference adapter to use as the system under test.")
     ev.add_argument("--endpoint", help="Required when --system=http: the triage endpoint URL.")
@@ -58,7 +60,12 @@ def main(argv: list[str] | None = None) -> int:
     args = parser.parse_args(argv)
 
     if args.command == "evaluate":
-        scenarios = load_benchmark(args.benchmark) if args.benchmark else load_sample_benchmark()
+        if not args.benchmark:
+            scenarios = load_sample_benchmark()
+        elif args.benchmark == "nvd":
+            scenarios = load_nvd_snapshot_v1()
+        else:
+            scenarios = load_benchmark(args.benchmark)
         guardrails = default_guardrails()
 
         if args.system == "http":
